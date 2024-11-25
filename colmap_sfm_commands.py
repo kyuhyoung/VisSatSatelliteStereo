@@ -35,6 +35,7 @@ from lib.run_cmd import run_cmd
 from colmap_sfm_utils import create_init_files
 
 gpu_index = '-1'
+#gpu_index = '0'
 
 
 def run_sift_matching(img_dir, db_file, camera_model):
@@ -42,7 +43,7 @@ def run_sift_matching(img_dir, db_file, camera_model):
 
     if os.path.exists(db_file): # otherwise colmap will skip sift matching
         os.remove(db_file)
-
+    #'''
     # feature extraction
     cmd = 'colmap feature_extractor --database_path {} \
                                     --image_path {} \
@@ -52,9 +53,12 @@ def run_sift_matching(img_dir, db_file, camera_model):
                                     --SiftExtraction.domain_size_pooling 1 \
                                     --SiftExtraction.max_num_features 25000 \
                                     --SiftExtraction.num_threads 32 \
-                                    --SiftExtraction.use_gpu 1 \
+                                    --SiftExtraction.use_gpu 0 \
                                     --SiftExtraction.gpu_index {}'.format(db_file, img_dir, camera_model, gpu_index)
+    
+    print('cmd :', cmd); #exit()
     run_cmd(cmd)
+    #'''
 
     # feature matching
     cmd = 'colmap exhaustive_matcher --database_path {} \
@@ -62,8 +66,10 @@ def run_sift_matching(img_dir, db_file, camera_model):
                                             --SiftMatching.num_threads 6 \
                                             --SiftMatching.max_error 3 \
                                             --SiftMatching.max_num_matches 30000 \
+                                            --SiftMatching.use_gpu 0 \
                                             --SiftMatching.gpu_index {}'.format(db_file, gpu_index)
 
+    print('cmd :', cmd); #exit()
     run_cmd(cmd)
 
 
@@ -98,6 +104,7 @@ def run_point_triangulation(img_dir, db_file, out_dir, template_file, tri_merge_
                                                                                                tri_merge_max_reproj_error,
                                                                                                tri_complete_max_reproj_error,
                                                                                                filter_max_reproj_error)
+    print('cmd :', cmd);    #exit()
     run_cmd(cmd)
 
 

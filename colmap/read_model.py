@@ -259,6 +259,7 @@ def read_points3d_binary(path_to_model_file):
 
 
 def read_model(path, ext):
+    #print('path :', path);  print('ext :', ext);    exit()
     if ext == ".txt":
         cameras = read_cameras_text(os.path.join(path, "cameras" + ext))
         images = read_images_text(os.path.join(path, "images" + ext))

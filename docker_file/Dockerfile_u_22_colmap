@@ -1,0 +1,75 @@
+#FROM --platform=linux/amd64 cordmaur/geospatial_minimal
+#FROM nvidia/cuda:11.0.3-base-ubuntu18.04
+#FROM ghcr.io/osgeo/gdal:ubuntu-full-latest
+#FROM ghcr.io/osgeo/gdal:ubuntu-small-latest
+FROM osgeo/gdal:ubuntu-small-3.6.3
+
+RUN apt-get update && apt-get install -y \
+    git \
+    cmake \
+    build-essential \
+    libboost-program-options-dev \
+    libboost-filesystem-dev \
+    libboost-graph-dev \
+    libboost-regex-dev \
+    libboost-system-dev \
+    libboost-test-dev \
+    libeigen3-dev \
+    libsuitesparse-dev \
+    libfreeimage-dev \
+    libgoogle-glog-dev \
+    libgflags-dev \
+    libglew-dev \
+    qtbase5-dev \
+    libqt5opengl5-dev \
+    libcgal-dev
+
+
+#RUN apt-get install -y nvidia-driver-390 nvidia-utils-390 nvidia-cuda-toolkit
+
+RUN apt-get install libatlas-base-dev libsuitesparse-dev
+RUN git clone https://ceres-solver.googlesource.com/ceres-solver && cd ceres-solver && git checkout facb199f3eda902360f9e1d5271372b7e54febe1 && mkdir build && cd build && cmake .. -DBUILD_TESTING=OFF -DBUILD_EXAMPLES=OFF && make -j8 && make install && cd ../../ && rm -rf ceres-solver
+
+RUN apt-get install -y fish
+RUN apt-get install -y curl
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py
+RUN pip install numpy
+RUN pip install python-dateutil
+RUN pip install imageio
+RUN pip install utm
+RUN pip install scipy
+RUN pip install pyquaternion
+RUN pip install pyproj
+RUN pip install pymap3d
+RUN pip install matplotlib
+RUN apt-get install -y python3-dev
+RUN pip install opencv-python --verbose
+RUN pip install --upgrade numpy==1.23.4
+RUN pip install numpy-groupies
+RUN pip uninstall -y opencv-python
+RUN pip install opencv-python-headless
+RUN apt-get install libxcb-xinerama0
+RUN apt-get install -y xvfb
+#RUN python3 -m pip install numpy -I
+#RUN apt-get update && \
+#    apt-get install -y -q --allow-unauthenticated \
+#    git \
+#    sudo
+#RUN useradd -m -s /bin/zsh linuxbrew && \
+#    usermod -aG sudo linuxbrew &&  \
+#    mkdir -p /home/linuxbrew/.linuxbrew && \
+#    chown -R linuxbrew: /home/linuxbrew/.linuxbrew
+#USER linuxbrew
+#RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+#USER root
+#RUN chown -R $CONTAINER_USER: /home/linuxbrew/.linuxbrew
+#ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+#RUN git config --global --add safe.directory /home/linuxbrew/.linuxbrew/Homebrew
+#USER linuxbrew
+#RUN brew update
+#RUN ulimit -n 499999 && brew install gdal@3.7.2
+#USER root
+#RUN apt-get install -y libgdal-dev
+#RUN pip install --global-option=build_ext --global-option="-I/usr/include/gdal" pygdal
+
+CMD bash

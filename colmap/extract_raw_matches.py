@@ -43,16 +43,43 @@ def extract_raw_matches(database_path):
     connection = sqlite3.connect(database_path)
     cursor = connection.cursor()
 
+
     images = {}
     cursor.execute("SELECT image_id, camera_id, name FROM images;")
+    #print('cursor :', cursor);  exit()
     for row in cursor:
         image_id = row[0]
         image_name = row[2]
         images[image_id] = image_name
+    
+    '''
+    cursor.execute(f"PRAGMA table_info(two_view_geometries)")
+    columns = cursor.fetchall()
+    iC = 0
+    for col in columns:
+        print('iC :', iC, ', col[1] :', col[1])
+    exit()     
+    '''
+    #cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    #tables = [row[0] for row in cursor.fetchall()]  # Get all table names
+    #print("Tables in database:", tables);    exit()
 
+
+    cursor.execute("SELECT pair_id, data FROM two_view_geometries")
+    columns = cursor.fetchall()
+    iC = 0
+    for col in columns:
+        print('iC :', iC)
+        iC += 1
+    #exit()     
+ 
+    #print('images :', images);  exit()
     cursor.execute("SELECT pair_id, data FROM two_view_geometries WHERE rows>=1;")
+    
     raw_matches_cnt = {}
+    n_row = 0
     for row in cursor:
+        n_row += 1
         pair_id = row[0]
         inlier_matches = np.fromstring(row[1],
                                        dtype=np.uint32).reshape(-1, 2)
@@ -70,11 +97,12 @@ def extract_raw_matches(database_path):
         else:
             raw_matches_cnt[image_name2].append((image_name1, inlier_matches.shape[0]))
 
+    #print('n_row :', n_row, ', raw_matches_cnt :', raw_matches_cnt);  exit()
     for img_name in raw_matches_cnt:
         tmp = raw_matches_cnt[img_name]
         raw_matches_cnt[img_name] = dict(tmp)
 
     cursor.close()
     connection.close()
-
+    #print('raw_matches_cnt :', raw_matches_cnt);    exit()
     return raw_matches_cnt

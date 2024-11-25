@@ -106,6 +106,7 @@ def write_template_pinhole(pinhole_dict, template_file):
 
 def create_init_files(db_file, template_file, out_dir):
     # read database
+    print('db_file :', db_file);    #exit()
     db = database.COLMAPDatabase.connect(db_file)
     table_images = db.execute("SELECT * FROM images")
     img_name2id_dict = {}

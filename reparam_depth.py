@@ -70,6 +70,7 @@ def robust_depth_range(depth_range):
 def reparam_depth(sparse_dir, save_dir, camera_model='perspective'):
     assert (camera_model == 'perspective' or camera_model == 'pinhole')
 
+    #print('sparse_dir :', sparse_dir);    exit()
     colmap_cameras, colmap_images, colmap_points3D = read_model(sparse_dir, ext='.txt')
 
     depth_range = {}
@@ -78,6 +79,7 @@ def reparam_depth(sparse_dir, save_dir, camera_model='perspective'):
         depth_range[img_name] = []
 
     z_values = []
+    #print('colmap_points3D :', colmap_points3D);    exit()
     for point3D_id in colmap_points3D:
         point3D = colmap_points3D[point3D_id]
         x = point3D.xyz.reshape((3, 1))

@@ -31,7 +31,8 @@
 
 
 from xml.etree.ElementTree import ElementTree
-import dateutil.parser
+#import dateutil.parser
+from dateutil import parser
 
 
 def parse_meta(xml_file):
@@ -81,7 +82,8 @@ def parse_meta(xml_file):
     meta_dict['width'] = int(tree.find('IMD/NUMCOLUMNS').text)
 
     # date string is in ISO format
-    meta_dict['capTime'] = dateutil.parser.parse(tree.find('IMD/IMAGE/TLCTIME').text)
+    #meta_dict['capTime'] = dateutil.parser.parse(tree.find('IMD/IMAGE/TLCTIME').text)
+    meta_dict['capTime'] = parser.parse(tree.find('IMD/IMAGE/TLCTIME').text)
 
     # sun direction
     meta_dict['sunAzim'] = float(tree.find('IMD/IMAGE/MEANSUNAZ').text)

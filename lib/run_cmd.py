@@ -37,6 +37,7 @@ import shlex
 
 # redirect stdout, stderr to file
 def run_cmd(cmd, disable_log=False, input=None):
+    print('\ncmd :', cmd); #exit()
     if not disable_log:
         logging.info('Running subprocess: {}'.format(cmd))
 

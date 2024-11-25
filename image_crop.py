@@ -71,6 +71,7 @@ def crop_ntf(in_ntf, out_png, ntf_size, bbx_size):
 
 
 def image_crop_worker(ntf_file, xml_file, n, total_cnt, utm_bbx_file, out_dir, result_file):
+    #print('utm_bbx_file :', utm_bbx_file);  exit()
     with open(utm_bbx_file) as fp:
         utm_bbx = json.load(fp)
     ul_easting = utm_bbx['ul_easting']

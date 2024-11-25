@@ -51,7 +51,7 @@ def make_subdirs(sfm_dir):
 
 def run_sfm(work_dir, sfm_dir, init_camera_file, weight):
     make_subdirs(sfm_dir)
-
+    #print('sfm_dir :', sfm_dir);    exit()
     img_dir = os.path.join(sfm_dir, 'images')
     db_file = os.path.join(sfm_dir, 'database.db')
 
@@ -68,8 +68,7 @@ def run_sfm(work_dir, sfm_dir, init_camera_file, weight):
         init_template = os.path.join(sfm_dir, 'init_template.json')
         write_template_perspective(init_camera_dict, init_template)
         tri_dir = os.path.join(sfm_dir, 'tri')
-        colmap_sfm_commands.run_point_triangulation(img_dir, db_file, tri_dir, init_template,
-                                                    reproj_err_threshold, reproj_err_threshold, reproj_err_threshold)
+        colmap_sfm_commands.run_point_triangulation(img_dir, db_file, tri_dir, init_template, reproj_err_threshold, reproj_err_threshold, reproj_err_threshold)
 
         # global bundle adjustment
         tri_ba_dir = os.path.join(sfm_dir, 'tri_ba')
