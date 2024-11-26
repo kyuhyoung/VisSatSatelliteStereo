@@ -67,12 +67,14 @@ def extract_raw_matches(database_path):
 
     cursor.execute("SELECT pair_id, data FROM two_view_geometries")
     columns = cursor.fetchall()
+    '''
     iC = 0
     for col in columns:
         print('iC :', iC)
         iC += 1
     #exit()     
- 
+    '''
+
     #print('images :', images);  exit()
     cursor.execute("SELECT pair_id, data FROM two_view_geometries WHERE rows>=1;")
     

@@ -1,8 +1,8 @@
 {
   "ori_dataset_dir": "/data/WV3/PAN",
-  "dataset_dir": "/data/WV3/PAN_kevin",
+  "dataset_dir": "/data/WV3/PAN",
   "ori_work_dir": "./explorer",
-  "work_dir": "./explorer_241122",
+  "work_dir": "./explorer_241126",
   "bounding_box": {
     "zone_number": 21,
     "hemisphere": "S",
@@ -13,21 +13,25 @@
   },
   "steps_to_run": {
     "ori_clean_data": true,
-    "clean_data": false,
+    "clean_data": true,
     "ori_crop_image": true,
-    "crop_image": false,
+    "crop_image": true,
     "ori_derive_approx": true,
-    "derive_approx": false,
+    "derive_approx": true,
     "ori_choose_subset": true,
-    "choose_subset": false,
+    "choose_subset": true,
     "ori_colmap_sfm_perspective": true,
-    "colmap_sfm_perspective": false,
+    "colmap_sfm_perspective": true,
     "ori_inspect_sfm_perspective": false,
-    "inspect_sfm_perspective": false,
+    "inspect_sfm_perspective": true,
+    "ori_reparam_depth": true,
     "reparam_depth": true,
+    "ori_colmap_mvs": true,
     "colmap_mvs": true,
+    "ori_aggregate_2p5d": true,
     "aggregate_2p5d": true,
-    "aggregate_3d": false
+    "ori_aggregate_3d": false,
+    "aggregate_3d": true
   },
   "alt_min": -30.0,
   "alt_max": 120.0

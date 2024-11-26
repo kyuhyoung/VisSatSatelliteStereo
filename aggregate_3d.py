@@ -42,13 +42,8 @@ from produce_dsm import produce_dsm_from_points
 
 # the unit of max_depth_error is now in meter
 def fuse(colmap_dir):
-    cmd = 'colmap stereo_fusion --workspace_path {colmap_dir}/mvs \
-                         --output_path {colmap_dir}/mvs/fused.ply \
-                         --input_type geometric \
-                         --StereoFusion.min_num_pixels 4\
-                         --StereoFusion.max_reproj_error 2\
-                         --StereoFusion.max_depth_error 1.0\
-                         --StereoFusion.max_normal_error 10'.format(colmap_dir=colmap_dir)
+    cmd = 'colmap stereo_fusion --workspace_path {colmap_dir}/mvs --output_path {colmap_dir}/mvs/fused.ply --input_type geometric --StereoFusion.min_num_pixels 4 --StereoFusion.max_reproj_error 2 --StereoFusion.max_depth_error 1.0 --StereoFusion.max_normal_error 10'.format(colmap_dir=colmap_dir)
+    
     run_cmd(cmd)
 
 
@@ -62,7 +57,10 @@ def run_fuse(work_dir):
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
 
-    points, color, comments = ply2np(os.path.join(work_dir, 'colmap/mvs/fused.ply'))
+    path_ply = os.path.join(work_dir, 'colmap/mvs/fused.ply')
+    #print('path_ply :', path_ply);  exit()
+    points, color, comments = ply2np(path_ply)
+    #points, color, comments = ply2np(os.path.join(work_dir, 'colmap/mvs/fused.ply'))
 
     lat, lon, alt = local_to_global(work_dir, points[:, 0:1], points[:, 1:2], points[:, 2:3])
 

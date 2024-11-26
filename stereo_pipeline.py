@@ -466,7 +466,7 @@ class StereoPipeline(object):
 
         # first run PMVS without filtering
         run_photometric_mvs(mvs_dir, window_radius)
-
+        #exit()
         # next do forward-backward checking and filtering
         run_consistency_check(mvs_dir, window_radius)
 

@@ -124,6 +124,8 @@ def split_big_list(big_list, num_small_lists):
 
 def convert_depth_maps(work_dir, out_dir, depth_type, max_processes=-1):
     mvs_dir = os.path.join(work_dir, 'colmap/mvs')
+    #print('mvs_dir :', mvs_dir);    exit()
+    #print('depth_type :', depth_type);    exit()
     if os.path.exists(out_dir):
         shutil.rmtree(out_dir)
 

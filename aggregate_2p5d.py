@@ -45,7 +45,8 @@ import imageio
 def run_fuse(work_dir, max_processes=-1):
     # first convert depth maps
     dsm_dir = os.path.join(work_dir, 'colmap/mvs/dsm')
-    convert_depth_maps(work_dir, dsm_dir, depth_type='geometric', max_processes=max_processes)
+    #convert_depth_maps(work_dir, dsm_dir, depth_type='geometric', max_processes=max_processes)
+    convert_depth_maps(work_dir, dsm_dir, depth_type='photometric', max_processes=max_processes)
 
     if not os.path.exists(os.path.join(work_dir, 'mvs_results')):
         os.mkdir(os.path.join(work_dir, 'mvs_results'))
